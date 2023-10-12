@@ -1,8 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "utils/interfaces";
 
 const Navbar = () => {
-	const { isAuth } = useSelector((state: any) => state.user); // типизировать!
+	const { isAuth } = useSelector((state: RootState) => state.user); // типизировать!
 
 	const authLinks = () => {
 		return (

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IUserState } from "utils/interfaces";
 
-const initialState = {
+const initialState: IUserState = {
     isAuth: false,
     user: null,
     loading: false,

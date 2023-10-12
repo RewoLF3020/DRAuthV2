@@ -1,10 +1,14 @@
 export interface IUser {
-
+    
 }
 
-export interface IState {
+export interface IUserState {
     isAuth: boolean;
-    user: IUser;
+    user: any | null;
     loading: boolean;
     registered: boolean;
+}
+
+export interface RootState {
+    user: IUserState;
 }
