@@ -1,8 +1,10 @@
+import Layout from "components/Layout";
+
 const Dashboard = () => {
     return (
-        <div>
+        <Layout title="DRAuthV2 | Dashboard" content="Dashboard page">
             Dashboard
-        </div>
+        </Layout>
     );
 }
 

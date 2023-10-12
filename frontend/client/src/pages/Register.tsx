@@ -1,8 +1,10 @@
+import Layout from "components/Layout";
+
 const Register = () => {
     return (
-        <div>
+        <Layout title="DRAuthV2 | Home" content="Home page">
             Register
-        </div>
+        </Layout>
     );
 }
 
