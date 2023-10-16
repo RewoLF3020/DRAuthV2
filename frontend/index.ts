@@ -5,6 +5,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 const registerRoute = require('./routes/auth/register');
+// import registerRoute from './routes/auth/register';
 
 const app = express();
 

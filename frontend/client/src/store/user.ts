@@ -22,7 +22,7 @@ export const register = createAsyncThunk('users/register', async (arg: IUser, th
                 body
             })
 
-            const data = response.json();
+            const data = await response.json();
 
             if (response.status === 201) {
                 return data;

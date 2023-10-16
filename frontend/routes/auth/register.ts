@@ -1,14 +1,11 @@
 import express from "express";
-// import fetch from 'node-fetch';
-// 
-// const customFetch = (...args: Parameters<typeof fetch>) => fetch(...args);
-// const fetch = (...args: any[]) =>
-	// import('node-fetch').then(({ default: fetch }) => fetch(...args)); исправить fetch
+import { RequestInfo, RequestInit } from "node-fetch";
 
+// const fetch = (url: RequestInfo, init?: RequestInit) =>  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
 const router = express.Router();
 
-router.post('/api/users/register', async (req, res) => { // register without / at the end
+router.post('/api/users/register', async (req, res) => { // register without / at the end because redux extraReducer add urls
     const body = JSON.stringify(req.body); // instead of next 2 points
 
     // const { first_name, last_name, email, password } = req.body;
@@ -41,3 +38,4 @@ router.post('/api/users/register', async (req, res) => { // register without / a
 });
 
 module.exports = router;
+// export default router;
