@@ -1,10 +1,13 @@
 export interface IUser {
-    
+    first_name: string;
+    last_name: string;
+    email: string;
+    password: string;
 }
 
 export interface IUserState {
     isAuth: boolean;
-    user: any | null;
+    user: IUser | null;
     loading: boolean;
     registered: boolean;
 }

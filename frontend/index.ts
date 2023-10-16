@@ -1,10 +1,16 @@
 import express from 'express';
 import path from 'path';
+import * as dotenv from 'dotenv';
 
-// const express = require('express');
-// const path = require('path')
+dotenv.config();
+
+const registerRoute = require('./routes/auth/register');
 
 const app = express();
+
+app.use(express.json());
+
+app.use(registerRoute);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

@@ -3,6 +3,6 @@ from .views import RegisterView, RetrieverUserView
 
 
 urlpatterns = [
-    path('register/', RegisterView.as_view()),
-    path('me/', RetrieverUserView.as_view()),
+    path('register', RegisterView.as_view()),
+    path('me', RetrieverUserView.as_view()),
 ]
