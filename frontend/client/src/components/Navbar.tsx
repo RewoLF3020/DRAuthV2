@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "utils/interfaces";
+import { logout } from "store/user";
 
 const Navbar = () => {
+	const dispatch = useDispatch();
 	const { isAuth } = useSelector((state: RootState) => state.user); // типизировать!
 
 	const authLinks = () => {
@@ -14,7 +16,9 @@ const Navbar = () => {
 					</NavLink>
 				</li>
 				<li className="nav-item">
-					<a className="nav-link" href="#!">Logout</a>
+					<a className="nav-link" href="#!" onClick={() => dispatch<any>(logout())}>
+						Logout
+					</a>
 				</li>
 			</>
 		)

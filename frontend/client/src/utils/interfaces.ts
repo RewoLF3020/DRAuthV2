@@ -15,3 +15,8 @@ export interface IUserState {
 export interface RootState {
     user: IUserState;
 }
+
+export interface ILogin {
+    email: string;
+    password: string;
+}
