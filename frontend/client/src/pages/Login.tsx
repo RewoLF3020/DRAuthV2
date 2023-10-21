@@ -7,11 +7,11 @@ import Layout from "components/Layout";
 
 const Login = () => {
     const dispatch = useDispatch();
-    const { loading, isAuth } = useSelector((state: RootState) => state.user);
+    const { loading, isAuth, registered } = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
-        dispatch(resetRegistered());
-    }, []);
+        if (registered) dispatch(resetRegistered());
+    }, [registered]);
 
     const [formData, setFormData] = useState<ILogin>({
         email: '',

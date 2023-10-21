@@ -3,11 +3,15 @@ import cookie from "cookie";
 
 const router = express.Router();
 
-router.post('/api/users/login', async (req, res) => {
-    const body = JSON.stringify(req.body);
+router.get('/api/users/refresh', async (req, res) => {
+    const { refresh } = req.cookies;
+
+    const body = JSON.stringify({
+        refresh: refresh,
+    })
 
     try {
-        const apiResponse = await fetch(`${process.env.API_URL}/api/token/`, {
+        const apiResponse = await fetch(`${process.env.API_URL}/api/token/verify/`, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -27,23 +31,16 @@ router.post('/api/users/login', async (req, res) => {
                     sameSite: 'strict',
                     secure: process.env.NODE_ENV === 'production',
                 }),
-                cookie.serialize('refresh', data.refresh, {
-                    httpOnly: true,
-                    maxAge: 60 * 60 * 24, // 1 day
-                    path: '/api/',
-                    sameSite: 'strict',
-                    secure: process.env.NODE_ENV === 'production'
-                })
             ])
 
-            return res.status(200).json({ success: 'Logged in successfully' });
+            return res.status(200).json({ success: 'Refreshed successfully' });
         } else {
             return res.status(apiResponse.status).json(data);
         }
     } catch (error: any) {
         return res.status(500).json({
-            error: 'Smth went wrong when logging in',
-        })
+            error: 'Smth went wrong when trying to refresh login status'
+        });
     }
 });
 

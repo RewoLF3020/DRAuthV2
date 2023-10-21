@@ -76,6 +76,60 @@ export const login = createAsyncThunk('users/login', async (arg: ILogin, thunkAP
     }
 });
 
+export const refreshAuth = createAsyncThunk('users/refresh', async (_, thunkAPI) => {
+    try {
+        const response = await fetch('/api/users/refresh', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+            const { dispatch } = thunkAPI;
+
+            dispatch(getUser());
+
+            return data;
+        } else {
+            return thunkAPI.rejectWithValue(data);
+        }
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
+export const checkAuth = createAsyncThunk('users/verify', async (_, thunkAPI) => {
+    try {
+        const response = await fetch('/api/users/verify', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+            },
+        });
+
+        const data = await response.json();
+
+        if (response.status === 200) {
+            const { dispatch } = thunkAPI;
+
+            dispatch(getUser());
+
+            return data;
+        } else if (response.status === 401) {
+            const { dispatch } = thunkAPI;
+
+            dispatch(refreshAuth());
+        } else {
+            return thunkAPI.rejectWithValue(data);
+        }
+    } catch (error: any) {
+        return thunkAPI.rejectWithValue(error.response.data);
+    }
+});
+
 export const logout = createAsyncThunk('users/logout', async (_, thunkAPI) => {
     try {
         const response = await fetch('/api/users/logout', {
@@ -143,6 +197,26 @@ const userSlice = createSlice({
                 state.user = action.payload;
             })
             .addCase(getUser.rejected, state => {
+                state.loading = false;
+            })
+            .addCase(checkAuth.pending, state => {
+                state.loading = true;
+            })
+            .addCase(checkAuth.fulfilled, state => {
+                state.loading = false;
+                state.isAuth = true;
+            })
+            .addCase(checkAuth.rejected, state => {
+                state.loading = false;
+            })
+            .addCase(refreshAuth.pending, state => {
+                state.loading = true;
+            })
+            .addCase(refreshAuth.fulfilled, state => {
+                state.loading = false;
+                state.isAuth = true;
+            })
+            .addCase(refreshAuth.rejected, state => {
                 state.loading = false;
             })
             .addCase(logout.pending, state => {
